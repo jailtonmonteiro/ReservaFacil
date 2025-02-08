@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using ReservaFacil.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("ReservaFacilContext"),
+    new MySqlServerVersion(new Version(8, 0, 38))
+    ));
 
 var app = builder.Build();
 
